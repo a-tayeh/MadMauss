@@ -1,0 +1,37 @@
+<% include partials/header %>
+
+<div class = "container">
+    <div class="jumbotron">
+      <h1 class="display-3">Hello Developers!</h1>
+      <p class="lead">Welcome to MadMauss, where you can sell a variety of products.</p>
+      <hr class="my-4">
+      <p>This website is created for developing purposes only, so you may see a change every now and then!</p>
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" href="/products/new" role="button" >Add a product</a>
+      </p>
+    </div>
+
+    
+    
+    <div class = "row" style = "display:flex; flex-wrap: wrap">
+       
+            <% products.forEach(function(product){ %>
+            
+             <div class = "col-md-3 col-sm-6">
+               <a class = "title-index" href= "/products/<%= product._id %>">
+                <div class = "thumbnail">
+                    <img class = "img-index" src="<%= product.image %>">
+                    <h5 class = "btn btn-primary pull-right">More info</h5>
+                    <div class = "caption">
+                         <h4> <%= product.name %> </h4> 
+                    
+                    </div>
+                </div>
+                </a>
+            </div>
+            <% }); %>
+        
+    </div>    
+</div>
+
+<% include partials/footer %>

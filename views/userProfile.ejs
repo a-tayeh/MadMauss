@@ -1,0 +1,26 @@
+<% include partials/header %>
+    <h1>Posts by <%=currentUser.username%></h1>
+    <br>
+    <div class = "row" style = "display:flex; flex-wrap: wrap">
+       
+            <% product.forEach(function(product){ %>
+            
+             <div class = "col-md-3 col-sm-6">
+               
+                <div class = "thumbnail">
+                    <img src="<%= product.image %>">
+                    <div class = "caption">
+                         <h4><%= product.name %> </h4>
+                    </div>
+                    <p>
+                        <a href= "/products/<%= product._id %>" class = "btn btn-primary">More info</a> <span class ="pull-right"><%=moment(product.createdAt).fromNow()%></span>
+                        
+                    </p>
+                </div>
+            </div>
+            <% }); %>
+        
+    </div>
+
+
+<% include partials/footer %>

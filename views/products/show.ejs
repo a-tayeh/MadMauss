@@ -1,0 +1,189 @@
+<%include ../partials/header%>
+    <div class = "container">
+    
+        <div class = "row">
+            <div class = "col-md-3">
+                <span class = "text-center"><h4>Item's Location</h4></span>
+                <div class = "lead">
+                    <div class = "list-group">
+                        <div id="map"></div>   
+                    </div>
+     
+
+                </div>
+            </div>
+            <div class = "col-lg-9">
+                <div class = "thumbnail">
+                    <img class = "img-responsive" src="<%= product.image %>" >
+                    <div class = "caption-full">
+                        <h4 class = "pull-right">$<%=product.cost%></h4>
+                        <h4> <%= product.name %></h4>
+                        <p>
+                            <em>Submitted by: <strong><%= product.author.username%></strong></em> <span class = "pull-right"><%= moment(product.createdAt).fromNow()%></span>
+                        </p>
+                        <p><strong>Description: </strong><%= product.description %></p>
+                       
+                       <% if(currentUser && currentUser._id.equals(product.author.id)) { %>
+                        <a href="#demo" class="btn btn-warning" data-toggle="collapse">Edit</a>
+                        <form class = "delete-form" action = "/products/<%= product._id %>?_method=DELETE" method = "POST">
+                            <button class = "btn btn-danger">Delete</button>
+                        </form>
+                        <div id="demo" class="collapse">
+                            <h4>Edit <%=product.name%> Post!</h4>
+                            <form action = "/products/<%=product._id%>?_method=PUT" method = "POST">
+                                <div class="form-group">
+                                    <label for = "product[name]">Name:</label>
+                                    <input class="form-control" type="text" name="product[name]" value="<%=product.name%>">
+                                </div>
+                                <div class="form-group">
+                                    <label for = "product[image]">Image:</label>
+                                    <input class="form-control" type="text" name="product[image]" value="<%=product.image%>">
+                                </div>
+                                <div class="form-group">
+                                    <label for = "product[description]">Description:</label>
+                                    <input class="form-control" type="text" name="product[description]" value="<%=product.description%>">
+                                </div>
+                                <div class="form-group">
+                                    <label for = "product[cost]">Cost:</label>
+                                    <input class="form-control" type="number" name="product[cost]" value="<%=product.cost%>" min = 0.01 step = 0.01>
+                                </div>
+                                <div class="form-group">
+                                    <label for="location">Location</label>
+                                    <input class="form-control" type="text" name="product[location]" id="location" value="<%= product.location %>">
+                                </div>   
+                                <div class="form-group">
+                                    <button class="btn btn-lg btn-primary">Submit</button>
+                                </div>
+                            </form>
+                            
+                            
+                        </div>
+                        <% } %>
+                    </div>
+                  
+                </div>
+                
+
+                <div>
+                <div class="well well-lg" style="border-left: 5px solid #00C851;">
+                    <div >
+                        <h3 class = "text-center"> Reviews <span class = "glyphicon glyphicon-comment"></span></h3>
+                        
+
+                    </div>
+ 
+                        <br>
+                 <% if(currentUser) {   %> 
+                        <a href = "#demo1" class = "btn btn-primary text-center" data-toggle="collapse">Add a review!</a>
+                        <br>
+                        <div>
+                            <br> 
+                            <form action = "/products/<%=product._id%>/reviews" 
+                             method = "POST" id = "demo1" class = "collapse" style="border-left: 5px solid #00C851;">
+                                <div class = "form-group">
+                                    <textarea class = "form-control" rows="4" cols="50" name = "review[text]" placeholder ="write here!"></textarea>
+                                </div>
+                                <div class = "text-center">
+                                    <button class = "btn btn-primary">Submit Review</button>
+                                </div>
+                                
+                            </form>                            
+                        </div>
+
+               
+                   <% } else { %>
+                            <h4>You must be logged in to add a review, <a href="/login">click here</a> to login, <a href = "/register">here</a>, to sign up!</h4>
+                   <% } %>
+
+                    
+                    <hr>
+                    <div>
+                        <% product.reviews.forEach(function(review) {%>
+                        <div class = "row">
+                            <div class = "col-md-12">
+                                
+                                <strong><p><%=review.author.username%></p></strong> <span class = "pull-right"><p><%=moment(review.createdAt).fromNow() %></p> </span>
+                                <p><%=review.text%></p>
+ 
+                            </div>
+                        <%  if(currentUser && currentUser._id.equals(review.author.id)){ %>
+                                <a class="btn btn-xs btn-warning" role="button" data-toggle="collapse" href="#collapseEdit<%= review._id %>" aria-expanded="false" aria-controls="collapse<%= review._id %>">
+                                Edit</a>
+                                 <!--Delete comment button-->
+                                <form id="delete-form" action="/products/<%= product._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST" style="display: inline;">
+                                    <button class="btn btn-xs btn-danger">Delete</button>
+                                </form>
+                                <!--Edit comment form-->
+                                <div class="collapse" id="collapseEdit<%= review._id %>">
+                                    <div class="well" style="border-left: 5px solid #ffbb33; margin-top: 15px;">
+                                        <h4>Edit your review <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></h4>
+                                        <form id="edit-comment-form" action="/products/<%= product._id %>/reviews/<%=review._id %>?_method=PUT" method="POST">
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" disabled value="<%= currentUser.username %>">
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea class="form-control" name="review[text]" placeholder="Your review text..." form="edit-comment-form" rows="5" cols="70"><%= review.text %></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <button class="btn btn-warning btn-sm">Edit review <span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>                            
+                        <%  } %>
+
+                                
+                          
+                        
+                                                      
+                            
+                        
+                
+                        </div>
+                        <% }); %>
+                    </div>
+                </div>                    
+                </div>
+
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    
+        <script>     
+                    function initMap(){
+                        var lat = <%=product.lat%>,
+                            lng = <%=product.lng%>
+                        var center = {lat:lat, lng:lng}
+                        var map = new google.maps.Map(document.getElementById('map'),{
+                            zoom:8,
+                            center:center,
+                            scrollwheel:false
+                        });
+                        var contentString = `
+                          <strong><%= product.name %><br />
+                          <%= product.location %></strong>
+                          <p><%= product.description %></p>
+                        `
+                        var infowindow = new google.maps.InfoWindow({
+                            content: contentString
+                        });
+                        var marker = new google.maps.Marker({
+                            position: center,
+                            map: map
+                    });
+                        marker.addListener('click', function() {
+                            infowindow.open(map, marker);
+                        });
+                        
+                    }
+        </script> 
+            </script> 
+                <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%=gmap%>&callback=initMap"></script>
+
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+                <script>
+
+<%include ../partials/footer%>

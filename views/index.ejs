@@ -1,6 +1,7 @@
 <% include partials/header %>
 
 <div class = "container">
+
     <div class="jumbotron">
       <h1 class="display-3">Hello Developers!</h1>
       <p class="lead">Welcome to MadMauss, where you can sell a variety of products.</p>
@@ -11,27 +12,23 @@
       </p>
     </div>
 
-    
-    
-    <div class = "row" style = "display:flex; flex-wrap: wrap">
+        <div class = "row" style = "display:flex; flex-wrap: wrap">
        
             <% products.forEach(function(product){ %>
             
-             <div class = "col-md-3 col-sm-6">
-               <a class = "title-index" href= "/products/<%= product._id %>">
-                <div class = "thumbnail">
-                    <img class = "img-index" src="<%= product.image %>">
-                    <h5 class = "btn btn-primary pull-right">More info</h5>
-                    <div class = "caption">
-                         <h4> <%= product.name %> </h4> 
-                    
-                    </div>
-                </div>
-                </a>
+             <div class = "col-md-3 col-sm-6 col-xs-12">
+                  <div class = "thumbnail">
+                          <a class = "title-index" href= "/products/<%= product._id %>">
+                            <img class = "img-index" src="<%= product.image %>">
+                          </a>
+                          <div class = "caption text-center">
+                               <h4><%= product.name %> </h4>
+                          </div>
+                  </div>
             </div>
             <% }); %>
-        
-    </div>    
+        </div>
+
 </div>
 
 <% include partials/footer %>

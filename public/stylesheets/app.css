@@ -14,7 +14,7 @@
 .thumbnail .img-responsive{
     height: 100%;
     width: 100%;
-       border-radius: 10px;
+    border-radius: 10px;
 }
 .delete-form{
     display: inline;
@@ -39,8 +39,10 @@
      top: 6px;
  }
  #map{
-     height: 400px;
-     width:100%;
+     height: 300px;
+     width:270px;
+     border-radius: 8px;
+     
  }
 
 body{
@@ -51,7 +53,7 @@ body{
 
 }
 .thumbnail .img-index{
-    height:200px; 
+    height:290px; 
     width:250px;
     border-radius: 10px;
 }

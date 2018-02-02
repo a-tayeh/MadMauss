@@ -1,19 +1,16 @@
 <%include ../partials/header%>
     <div class = "container">
-    
         <div class = "row">
-            <div class = "col-md-3">
-                <span class = "text-center"><h4>Item's Location</h4></span>
-                <div class = "lead">
-                    <div class = "list-group">
-                        <div id="map"></div>   
-                    </div>
-     
+          <div class="col-md-3" >
+                <p class="lead text-center">Item's Location</p>
+                <div class="list-group"></div>
+                <div id="map"></div>
+          </div>
 
-                </div>
-            </div>
+            
             <div class = "col-lg-9">
                 <div class = "thumbnail">
+
                     <img class = "img-responsive" src="<%= product.image %>" >
                     <div class = "caption-full">
                         <h4 class = "pull-right">$<%=product.cost%></h4>
@@ -183,7 +180,6 @@
             </script> 
                 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%=gmap%>&callback=initMap"></script>
 
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-                <script>
+  
 
 <%include ../partials/footer%>

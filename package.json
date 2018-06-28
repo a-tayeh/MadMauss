@@ -1,7 +1,7 @@
 {
   "name": "madsauss",
-  "version": "1.0.0",
-  "description": "",
+  "version": "2.0.1",
+  "description": "This website is to demonstrate my web-dev skills, expect this website to change as I'm continuously learning new developing techniques, mainly, nodeJS, MongoDB, and Express!",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -32,5 +32,14 @@
     "passport-local-mongoose": "^4.4.0",
     "request": "^2.83.0",
     "update": "^0.7.4"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a-tayeh/MadMauss.git"
+  },
+  "bugs": {
+    "url": "https://github.com/a-tayeh/MadMauss/issues"
+  },
+  "homepage": "https://github.com/a-tayeh/MadMauss#readme"
 }

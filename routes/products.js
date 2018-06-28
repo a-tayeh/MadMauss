@@ -106,7 +106,7 @@ var cloudinary = require('cloudinary');
 // *******************************************************
 //                  Product Edit route
 // *******************************************************
-router.put("/products/:id", function(req, res){
+router.put("/products/:id", middleware.isLoggedIn, function(req, res){
   geocoder.geocode(req.body.product.location, function (err, data) {
     var lat = data.results[0].geometry.location.lat;
     var lng = data.results[0].geometry.location.lng;

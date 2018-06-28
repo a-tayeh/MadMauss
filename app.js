@@ -67,6 +67,6 @@ app.use(productRoutes);
 app.use(reviewRoutes);
 
 // starts up the server
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(3000||process.env.PORT, process.env.IP, function(){
    console.log("The Madmauss Server Has Started!");
 });
